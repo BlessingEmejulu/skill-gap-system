@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reports | SkillGap.ng</title>
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Dashboard navigation">
+    <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
+      <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
+    </a>
+    <a href="dashboard.html" class="sidebar-link">📊 Dashboard</a>
+    <a href="profile.html" class="sidebar-link">👤 Profile</a>
+    <a href="assessment.html" class="sidebar-link">📝 Skill assessment</a>
+    <a href="prediction.html" class="sidebar-link">🎯 Prediction</a>
+    <a href="analytics.html" class="sidebar-link">📈 Analytics</a>
+    <a href="reports.html" class="sidebar-link active">📄 Reports</a>
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);">🌙</button>
+      <button class="btn btn-secondary btn-block btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </aside>
+
+  <div>
+    <header class="navbar" style="position:sticky;">
+      <div class="navbar-inner" style="max-width:none;">
+        <button class="nav-toggle" data-sidebar-toggle aria-label="Open sidebar menu" style="display:block;">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 style="margin:0; font-size:1.1rem;">Reports</h2>
+        <div></div>
+      </div>
+    </header>
+
+    <main id="main" class="main-content" style="max-width:700px;">
+
+      <section class="card reveal" style="margin-bottom:var(--space-4);">
+        <h3>Generate a report</h3>
+        <p style="font-size:0.875rem;">Available to Administrator and Researcher accounts.</p>
+        <div style="display:flex; gap:var(--space-3); flex-wrap:wrap;">
+          <button class="btn btn-primary" id="generate-pdf-btn">Generate PDF</button>
+          <button class="btn btn-secondary" id="generate-xlsx-btn">Generate Excel</button>
+        </div>
+      </section>
+
+      <section class="card reveal">
+        <h3>Your reports</h3>
+        <div id="reports-list">
+          <div class="skeleton" style="height:48px; margin-bottom:var(--space-2);"></div>
+          <div class="skeleton" style="height:48px;"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/reports.js"></script>
+</body>
+</html>

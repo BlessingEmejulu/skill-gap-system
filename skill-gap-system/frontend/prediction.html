@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Employability Prediction | SkillGap.ng</title>
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Dashboard navigation">
+    <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
+      <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
+    </a>
+    <a href="dashboard.html" class="sidebar-link">📊 Dashboard</a>
+    <a href="profile.html" class="sidebar-link">👤 Profile</a>
+    <a href="assessment.html" class="sidebar-link">📝 Skill assessment</a>
+    <a href="prediction.html" class="sidebar-link active">🎯 Prediction</a>
+    <a href="analytics.html" class="sidebar-link">📈 Analytics</a>
+    <a href="reports.html" class="sidebar-link">📄 Reports</a>
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);">🌙</button>
+      <button class="btn btn-secondary btn-block btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </aside>
+
+  <div>
+    <header class="navbar" style="position:sticky;">
+      <div class="navbar-inner" style="max-width:none;">
+        <button class="nav-toggle" data-sidebar-toggle aria-label="Open sidebar menu" style="display:block;">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 style="margin:0; font-size:1.1rem;">Employability Prediction</h2>
+        <div></div>
+      </div>
+    </header>
+
+    <main id="main" class="main-content">
+
+      <section class="card reveal" style="text-align:center; padding:var(--space-6); margin-bottom:var(--space-5);">
+        <div id="score-ring" style="width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--color-border) 0 100%);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-4);">
+          <div style="width:120px;height:120px;border-radius:50%;background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span id="score-value" style="font-family:var(--font-heading); font-size:2rem; font-weight:700;">—</span>
+            <span style="font-size:0.75rem; color:var(--color-muted);">score</span>
+          </div>
+        </div>
+        <span class="badge" id="risk-badge" hidden></span>
+        <p style="margin-top:var(--space-4); max-width:480px; margin-left:auto; margin-right:auto;" id="score-explainer">
+          Run a prediction to see your employability score, based on your CGPA, skills, projects, internships, and certifications.
+        </p>
+        <button class="btn btn-primary" id="run-prediction-btn">Run new prediction</button>
+      </section>
+
+      <section class="card reveal">
+        <h3>Prediction history</h3>
+        <div id="history-table-wrap">
+          <table style="width:100%; border-collapse:collapse;" aria-label="Prediction history">
+            <thead>
+              <tr style="text-align:left; border-bottom:1px solid var(--color-border);">
+                <th style="padding:10px 8px;">Date</th>
+                <th style="padding:10px 8px;">Score</th>
+                <th style="padding:10px 8px;">Probability</th>
+                <th style="padding:10px 8px;">Risk</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body">
+              <tr><td colspan="4" style="padding:16px 8px; color:var(--color-muted);">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/prediction.js"></script>
+</body>
+</html>

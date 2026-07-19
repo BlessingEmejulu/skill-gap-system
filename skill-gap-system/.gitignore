@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+
+# Environment
+.env
+
+# Database
+*.db
+*.sqlite3
+
+# ML artifacts (regenerate via train_model.py)
+backend/app/ml/artifacts/*.joblib
+
+# Reports generated at runtime
+backend/reports/
+
+# Uploads
+backend/uploads/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/

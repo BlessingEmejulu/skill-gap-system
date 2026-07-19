@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard | SkillGap.ng</title>
+<link rel="stylesheet" href="assets/css/main.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Dashboard navigation">
+    <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
+      <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
+    </a>
+    <a href="dashboard.html" class="sidebar-link active">📊 Dashboard</a>
+    <a href="profile.html" class="sidebar-link">👤 Profile</a>
+    <a href="assessment.html" class="sidebar-link">📝 Skill assessment</a>
+    <a href="prediction.html" class="sidebar-link">🎯 Prediction</a>
+    <a href="analytics.html" class="sidebar-link">📈 Analytics</a>
+    <a href="reports.html" class="sidebar-link">📄 Reports</a>
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);">🌙</button>
+      <button class="btn btn-secondary btn-block btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </aside>
+
+  <div>
+    <header class="navbar" style="position:sticky;">
+      <div class="navbar-inner" style="max-width:none;">
+        <button class="nav-toggle" data-sidebar-toggle aria-label="Open sidebar menu" style="display:block;">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 style="margin:0; font-size:1.1rem;" id="welcome-heading">Welcome back</h2>
+        <div></div>
+      </div>
+    </header>
+
+    <main id="main" class="main-content">
+
+      <section class="stat-grid reveal" aria-label="Key metrics" style="margin-bottom:var(--space-5);">
+        <div class="card stat-card">
+          <div class="stat-label">Employability score</div>
+          <div class="stat-value" id="stat-score">
+            <span class="skeleton" style="display:inline-block; width:80px; height:2rem;"></span>
+          </div>
+          <span class="badge" id="stat-risk-badge" hidden></span>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Skills recorded</div>
+          <div class="stat-value" id="stat-skill-count">
+            <span class="skeleton" style="display:inline-block; width:50px; height:2rem;"></span>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">CGPA on file</div>
+          <div class="stat-value" id="stat-cgpa">
+            <span class="skeleton" style="display:inline-block; width:60px; height:2rem;"></span>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-label">Open recommendations</div>
+          <div class="stat-value" id="stat-recs">
+            <span class="skeleton" style="display:inline-block; width:40px; height:2rem;"></span>
+          </div>
+        </div>
+      </section>
+
+      <section style="display:grid; grid-template-columns: 1.3fr 1fr; gap:var(--space-4); margin-bottom:var(--space-5);" class="reveal">
+        <div class="card">
+          <h3>Prediction history</h3>
+          <p style="font-size:0.85rem;">Your employability score over time.</p>
+          <canvas id="history-chart" height="220" role="img" aria-label="Line chart of employability score over time"></canvas>
+        </div>
+        <div class="card">
+          <h3>Get a fresh prediction</h3>
+          <p style="font-size:0.85rem;">Re-run the model any time your profile changes.</p>
+          <button class="btn btn-primary btn-block" id="run-prediction-btn">Run prediction</button>
+          <div id="prediction-result" style="margin-top:var(--space-4);" hidden>
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px;">
+              <span>Score</span><span id="prediction-score-label">—</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="prediction-progress"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card reveal" style="margin-bottom:var(--space-5);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-3);">
+          <h3 style="margin:0;">AI recommendations</h3>
+          <button class="btn btn-secondary btn-sm" id="generate-recs-btn">Generate new</button>
+        </div>
+        <div id="recommendations-list">
+          <div class="skeleton" style="height:56px; margin-bottom:var(--space-2);"></div>
+          <div class="skeleton" style="height:56px;"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>

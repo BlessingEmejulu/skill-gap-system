@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Analytics | SkillGap.ng</title>
+<link rel="stylesheet" href="assets/css/main.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js" defer></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Dashboard navigation">
+    <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
+      <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
+    </a>
+    <a href="dashboard.html" class="sidebar-link">📊 Dashboard</a>
+    <a href="profile.html" class="sidebar-link">👤 Profile</a>
+    <a href="assessment.html" class="sidebar-link">📝 Skill assessment</a>
+    <a href="prediction.html" class="sidebar-link">🎯 Prediction</a>
+    <a href="analytics.html" class="sidebar-link active">📈 Analytics</a>
+    <a href="reports.html" class="sidebar-link">📄 Reports</a>
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);">🌙</button>
+      <button class="btn btn-secondary btn-block btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </aside>
+
+  <div>
+    <header class="navbar" style="position:sticky;">
+      <div class="navbar-inner" style="max-width:none;">
+        <button class="nav-toggle" data-sidebar-toggle aria-label="Open sidebar menu" style="display:block;">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 style="margin:0; font-size:1.1rem;">Labour Market Analytics</h2>
+        <div></div>
+      </div>
+    </header>
+
+    <main id="main" class="main-content">
+      <p class="reveal" style="margin-bottom:var(--space-4);">
+        Available to Administrator and Researcher accounts. Requires job postings and graduate
+        skill data to be populated before charts show results.
+      </p>
+
+      <div id="analytics-content">
+        <section style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4);" class="reveal">
+          <div class="card">
+            <h3>Top demanded skills</h3>
+            <canvas id="top-skills-chart" height="220" role="img" aria-label="Bar chart of most demanded skills"></canvas>
+          </div>
+          <div class="card">
+            <h3>Most common skill gaps</h3>
+            <canvas id="skill-gaps-chart" height="220" role="img" aria-label="Bar chart of most common skill gaps"></canvas>
+          </div>
+        </section>
+
+        <section class="card reveal" style="margin-top:var(--space-4);">
+          <h3>Graduate distribution by university</h3>
+          <canvas id="distribution-chart" height="220" role="img" aria-label="Bar chart of graduate distribution by university"></canvas>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/analytics.js"></script>
+</body>
+</html>
