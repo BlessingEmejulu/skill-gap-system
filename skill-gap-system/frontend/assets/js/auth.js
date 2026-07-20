@@ -97,7 +97,8 @@
         window.showToast('Account created — welcome!', 'success');
         window.location.href = 'dashboard.html';
       } catch (err) {
-        window.showToast(err.message || 'Could not create your account.', 'danger');
+        // The login page doesn't have the toast component, so we use a simple alert.
+        alert(err.message || 'Could not create your account.');
       } finally {
         setLoading('register-submit', false, 'Create account');
       }

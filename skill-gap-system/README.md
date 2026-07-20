@@ -57,14 +57,23 @@ skill-gap-system/
 
 ```bash
 cd backend
-python3 -m venv venv && source venv/bin/activate     # optional but recommended
+
+# Create and activate a virtual environment (optional but recommended)
+python -m venv venv
+# On Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+# On macOS/Linux:
+# source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
-cp .env.example .env                                  # then edit SECRET_KEY at minimum
+cp .env.example .env  # then edit SECRET_KEY at minimum
 
 # (optional) train the employability model on synthetic demo data —
 # without this, predictions fall back to a transparent weighted heuristic
 python -m app.ml.train_model
 
+# Run the development server
 uvicorn app.main:app --reload
 ```
 
