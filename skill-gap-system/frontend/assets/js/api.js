@@ -4,7 +4,7 @@
  */
 const API = (() => {
   // Change this if the backend runs on a different host/port.
-  const BASE_URL = window.API_BASE_URL || 'http://localhost:8000';
+  const BASE_URL = window.API_BASE_URL || 'http://localhost:8001';
   const TOKEN_KEY = 'sgs_token';
   const USER_KEY = 'sgs_user';
 

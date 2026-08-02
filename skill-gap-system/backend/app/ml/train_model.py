@@ -12,6 +12,7 @@ import os
 
 import joblib
 import numpy as np
+import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
@@ -58,8 +59,32 @@ def generate_synthetic_dataset(n_samples: int = 2000):
     return X, y
 
 
+def load_real_dataset(csv_path: str = "dataset.csv"):
+    if not os.path.exists(csv_path):
+        return None, None
+        
+    df = pd.read_csv(csv_path)
+    # Ensure all required features are present
+    for feature in FEATURE_NAMES:
+        if feature not in df.columns:
+            raise ValueError(f"Missing required feature column: {feature}")
+    
+    if "employed" not in df.columns:
+        raise ValueError("Missing 'employed' target column (1 or 0)")
+        
+    X = df[FEATURE_NAMES].values
+    y = df["employed"].values
+    return X, y
+
+
 def main():
-    X, y = generate_synthetic_dataset()
+    X, y = load_real_dataset("dataset.csv")
+    if X is None or y is None:
+        print("No dataset.csv found. Training on synthetic data.")
+        X, y = generate_synthetic_dataset()
+    else:
+        print("Training on real dataset from dataset.csv")
+
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     clf = RandomForestClassifier(n_estimators=200, max_depth=8, random_state=42)

@@ -18,8 +18,8 @@ class Settings(BaseSettings):
 
     allowed_origins: str = "http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500"
 
-    gemma_api_url: str = "http://localhost:11434/api/generate"
-    gemma_model_name: str = "gemma2"
+    gemini_api_key: str = ""
+    gemini_model_name: str = "gemini-2.5-flash"
 
     upload_dir: str = "./uploads"
     max_upload_mb: int = 10

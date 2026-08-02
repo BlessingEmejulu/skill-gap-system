@@ -11,7 +11,7 @@ from app.models.prediction import Recommendation
 from app.models.common import UserRole
 from app.auth.dependencies import require_roles
 from app.schemas.prediction import RecommendationOut
-from app.ai.gemma_client import gemma_client
+from app.ai.gemini_client import gemini_client
 
 router = APIRouter(prefix="/api/recommendations", tags=["Recommendations"])
 
@@ -36,7 +36,7 @@ async def generate_my_recommendations(
         "skill_count": len(graduate.skills),
     }
 
-    generated = await gemma_client.generate_recommendations(profile_summary, missing_skill_names)
+    generated = await gemini_client.generate_recommendations(profile_summary, missing_skill_names)
 
     saved: list[Recommendation] = []
     for item in generated:
