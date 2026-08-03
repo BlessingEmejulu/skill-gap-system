@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Skill Assessment | SkillGap.ng</title>
+<title>Job Matching | SkillGap.ng</title>
 <link rel="stylesheet" href="assets/css/main.css" />
 </head>
 <body>
@@ -16,8 +16,8 @@
     </a>
     <a href="dashboard.html" class="sidebar-link"> Dashboard</a>
     <a href="profile.html" class="sidebar-link"> Profile</a>
-    <a href="assessment.html" class="sidebar-link active"> Skill assessment</a>
-    <a href="jobs.html" class="sidebar-link"> Job matching</a>
+    <a href="assessment.html" class="sidebar-link"> Skill assessment</a>
+    <a href="jobs.html" class="sidebar-link active"> Job matching</a>
     <a href="prediction.html" class="sidebar-link"> Prediction</a>
     <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);"></button>
@@ -31,33 +31,23 @@
         <button class="nav-toggle" data-sidebar-toggle aria-label="Open sidebar menu" style="display:block;">
           <span></span><span></span><span></span>
         </button>
-        <h2 style="margin:0; font-size:1.1rem;">Skill Assessment</h2>
+        <h2 style="margin:0; font-size:1.1rem;">Job Matching</h2>
         <div></div>
       </div>
     </header>
 
-    <main id="main" class="main-content" style="max-width:760px;">
+    <main id="main" class="main-content">
       <p class="reveal" style="margin-bottom:var(--space-4);">
-        Rate your proficiency in each skill from 0–100. Your ratings feed directly into your
-        employability prediction and skill-gap matching against job postings.
+        Browse available jobs and see how well your skills match their requirements.
+        A higher match percentage means you're more likely to land the role.
       </p>
 
-      <div class="field reveal" style="max-width:320px;">
-        <label for="category-filter">Filter by category</label>
-        <select id="category-filter">
-          <option value="all">All categories</option>
-          <option value="technical">Technical</option>
-          <option value="soft">Soft skills</option>
-          <option value="digital_literacy">Digital literacy</option>
-          <option value="industry_readiness">Industry readiness</option>
-        </select>
-      </div>
+      <section id="jobs-container" class="reveal" style="display: grid; gap: var(--space-4);">
+        <div class="skeleton" style="height:120px;"></div>
+        <div class="skeleton" style="height:120px;"></div>
+        <div class="skeleton" style="height:120px;"></div>
+      </section>
 
-      <div id="skills-container" class="reveal" style="margin-top:var(--space-4);">
-        <div class="skeleton" style="height:64px; margin-bottom:var(--space-3);"></div>
-        <div class="skeleton" style="height:64px; margin-bottom:var(--space-3);"></div>
-        <div class="skeleton" style="height:64px;"></div>
-      </div>
     </main>
   </div>
 </div>
@@ -65,6 +55,6 @@
 <script src="assets/js/api.js"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/assessment.js?v=2"></script>
+<script src="assets/js/jobs.js"></script>
 </body>
 </html>
