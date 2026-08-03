@@ -26,6 +26,7 @@
 
 <div class="app-shell">
   <aside class="sidebar" aria-label="Dashboard navigation">
+    <button class="sidebar-close" aria-label="Close menu">&times;</button>
     <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
       <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
     </a>
@@ -58,7 +59,7 @@
               <input type="text" id="job-title" class="input" required placeholder="e.g. Senior Data Analyst" />
             </div>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+            <div class="responsive-grid">
               <div class="field">
                 <label for="job-industry">Industry</label>
                 <input type="text" id="job-industry" class="input" required placeholder="e.g. Finance" />

@@ -18,7 +18,24 @@
     const sidebarToggle = document.querySelector('[data-sidebar-toggle]');
     const sidebar = document.querySelector('.sidebar');
     if (sidebarToggle && sidebar) {
-      sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+      // Create and inject overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'sidebar-overlay';
+      document.body.appendChild(overlay);
+
+      function toggleSidebar() {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('open');
+      }
+
+      sidebarToggle.addEventListener('click', toggleSidebar);
+      overlay.addEventListener('click', toggleSidebar);
+
+      // Close button inside sidebar
+      const sidebarClose = sidebar.querySelector('.sidebar-close');
+      if (sidebarClose) {
+        sidebarClose.addEventListener('click', toggleSidebar);
+      }
     }
 
     // Scroll-reveal

@@ -11,6 +11,7 @@
 
 <div class="app-shell">
   <aside class="sidebar" aria-label="Dashboard navigation">
+    <button class="sidebar-close" aria-label="Close menu">&times;</button>
     <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
       <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
     </a>
@@ -41,7 +42,7 @@
       <form id="profile-form" class="card reveal" style="margin-bottom:var(--space-4);" novalidate>
         <h3>Academic background</h3>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-3);">
+        <div class="responsive-grid">
           <div class="field">
             <label for="field-degree">Degree</label>
             <input type="text" id="field-degree" name="degree" placeholder="e.g. B.Sc Computer Science" />

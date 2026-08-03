@@ -620,22 +620,69 @@ footer {
 .toast.toast-success { border-left-color: var(--color-accent); }
 
 /* =========================================================================
+   Responsive / Utility classes
+   ========================================================================= */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.responsive-grid-1-3 {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-4);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-close {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+.sidebar-close:hover {
+  color: var(--color-danger);
+}
+
+/* =========================================================================
    Responsive breakpoints (per spec: 320 / 480 / 768 / 1024 / 1440)
    ========================================================================= */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; }
   .app-shell { grid-template-columns: 220px 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .responsive-grid-1-3 { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .app-shell { grid-template-columns: 1fr; }
+  .responsive-grid { grid-template-columns: 1fr; }
+  .sidebar-close { display: block; }
   .sidebar {
     position: fixed;
     top: 0; left: 0; bottom: 0;
-    width: 260px;
+    width: 280px;
     transform: translateX(-100%);
     transition: transform var(--transition-base);
     z-index: 200;
