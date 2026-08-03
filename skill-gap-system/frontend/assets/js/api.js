@@ -110,8 +110,11 @@ const API = (() => {
     listCourses: () => request('/api/courses'),
 
     // Jobs
+    createJob: (payload) => request('/api/jobs', { method: 'POST', body: payload }),
     listJobs: (params) => request('/api/jobs', { params }),
+    getJob: (jobId) => request(`/api/jobs/${jobId}`),
     getJobMatch: (jobId) => request(`/api/jobs/${jobId}/match`),
+    getEmployerJobMatches: (jobId) => request(`/api/jobs/${jobId}/matches`),
 
     // Prediction
     runPrediction: () => request('/api/prediction/me', { method: 'POST' }),

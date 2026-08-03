@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Employer Dashboard | SkillGap.ng</title>
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Dashboard navigation">
+    <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
+      <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
+    </a>
+    <a href="employer-dashboard.html" class="sidebar-link active"> Dashboard</a>
+    <a href="employer-post-job.html" class="sidebar-link"> Post a new job</a>
+    
+    <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);"></button>
+      <button class="btn btn-secondary btn-block btn-sm" id="logout-btn">Log out</button>
+    </div>
+  </aside>
+
+  <div>
+    <header class="navbar" style="position:sticky;">
+      <div class="navbar-inner" style="max-width:none;">
+        <button class="nav-toggle" data-sidebar-toggle aria-label="Open sidebar menu" style="display:block;">
+          <span></span><span></span><span></span>
+        </button>
+        <h2 style="margin:0; font-size:1.1rem;">Employer Dashboard</h2>
+        <div></div>
+      </div>
+    </header>
+
+    <main id="main" class="main-content">
+      
+      <div class="card reveal" style="margin-bottom: var(--space-4);">
+        <h2 id="company-name" style="margin-top: 0;">Loading...</h2>
+        <p id="company-details" style="color: var(--color-muted); margin-bottom: 0;"></p>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-4);">
+        <h3>Your Job Postings</h3>
+        <a href="employer-post-job.html" class="btn btn-primary btn-sm">Post a new job</a>
+      </div>
+
+      <div id="jobs-list" class="reveal" style="display: grid; gap: var(--space-4);">
+        <!-- Jobs will be populated here by JS -->
+        <div class="skeleton" style="height:120px;"></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/api.js?v=2"></script>
+<script src="assets/js/theme.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/employer-dashboard.js?v=2"></script>
+</body>
+</html>

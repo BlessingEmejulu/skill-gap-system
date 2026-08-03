@@ -88,6 +88,45 @@ def get_my_match_for_job(
     }
 
 
+@router.get("/{job_id}/matches")
+def get_employer_matches_for_job(
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_roles(UserRole.EMPLOYER)),
+):
+    """Computes matches for all graduates against this job for the employer."""
+    from app.services.skill_gap_service import compute_match
+
+    employer = db.query(Employer).filter(Employer.user_id == current_user.id).first()
+    if not employer:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Employer profile not found.")
+        
+    job = db.query(JobPosting).filter(JobPosting.id == job_id, JobPosting.employer_id == employer.id).first()
+    if not job:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job posting not found or not owned by you.")
+        
+    graduates = db.query(Graduate).all()
+    results = []
+    
+    for grad in graduates:
+        # compute match dynamically
+        match_data = compute_match(db, grad, job)
+        
+        # We only want to show decent matches (e.g., >0%) or we can just return all of them.
+        # Let's return all and let the frontend decide.
+        results.append({
+            "graduate_id": grad.id,
+            "full_name": grad.user.full_name if grad.user else "Unknown",
+            "email": grad.user.email if grad.user else "Unknown",
+            "match_percentage": match_data["match_percentage"],
+            "missing_skill_ids": match_data["missing_skill_ids"]
+        })
+        
+    # Sort by match percentage descending
+    results.sort(key=lambda x: x["match_percentage"], reverse=True)
+    return {"matches": results}
+
+
 @router.delete("/{job_id}", status_code=status.HTTP_204_NO_CONTENT)
 def close_job(
     job_id: int,

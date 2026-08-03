@@ -37,9 +37,16 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Redirect already-logged-in users straight to the dashboard.
+    // Redirect already-logged-in users based on their role
     if (API.isAuthenticated()) {
-      window.location.href = 'dashboard.html';
+      const user = API.getUser();
+      if (user && user.role === 'employer') {
+        window.location.href = 'employer-dashboard.html';
+      } else if (user && (user.role === 'admin' || user.role === 'researcher')) {
+        window.location.href = 'analytics.html';
+      } else {
+        window.location.href = 'dashboard.html';
+      }
       return;
     }
 
@@ -66,7 +73,13 @@
         const user = await API.me();
         API.setSession(result.access_token, user);
         alert('Welcome back!');
-        window.location.href = 'dashboard.html';
+        if (user.role === 'employer') {
+          window.location.href = 'employer-dashboard.html';
+        } else if (user.role === 'admin' || user.role === 'researcher') {
+          window.location.href = 'analytics.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
       } catch (err) {
         alert(err.message || 'Could not log in.');
       } finally {
@@ -95,7 +108,13 @@
         const user = await API.me();
         API.setSession(result.access_token, user);
         alert('Account created — welcome!');
-        window.location.href = 'dashboard.html';
+        if (user.role === 'employer') {
+          window.location.href = 'employer-dashboard.html';
+        } else if (user.role === 'admin' || user.role === 'researcher') {
+          window.location.href = 'analytics.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
       } catch (err) {
         // The login page doesn't have the toast component, so we use a simple alert.
         alert(err.message || 'Could not create your account.');

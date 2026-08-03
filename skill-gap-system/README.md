@@ -2,7 +2,7 @@
 
 An AI-powered employability and skill-gap prediction platform for Nigerian graduates — predicts employability, compares graduate skills against labour market demand, and recommends personalized learning paths to help close the gap between school and work.
 
-This is a **fully functional system**: the data model, JWT authentication, REST API, ML prediction pipeline, Google Gemma integration, and frontend pages are wired together and run end-to-end.
+This is a **fully functional system**: the data model, JWT authentication, REST API, ML prediction pipeline, Google Gemini integration, and frontend pages are wired together and run end-to-end.
 
 ## Stack
 
@@ -11,7 +11,7 @@ This is a **fully functional system**: the data model, JWT authentication, REST 
 | Frontend   | HTML5, CSS3, vanilla JavaScript (ES6+), Chart.js |
 | Backend    | FastAPI, SQLAlchemy, SQLite, Pydantic |
 | Auth       | JWT (python-jose) + bcrypt for password hashing |
-| AI         | Google Gemini / Gemma (skill extraction from CVs, dynamic recommendations) |
+| AI         | Google Gemini (skill extraction from CVs, dynamic recommendations) |
 | ML         | scikit-learn (RandomForestClassifier) for employability prediction |
 | Docker     | Docker Compose for seamless, reproducible multi-container deployment |
 
