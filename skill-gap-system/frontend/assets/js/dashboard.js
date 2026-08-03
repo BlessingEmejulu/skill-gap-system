@@ -32,6 +32,10 @@
 
       document.getElementById('stat-cgpa').textContent = profile.cgpa != null ? profile.cgpa.toFixed(2) : '—';
       document.getElementById('stat-recs').textContent = recs.length;
+      const skillCountEl = document.getElementById('stat-skill-count');
+      if (skillCountEl) {
+        skillCountEl.textContent = profile.skills_count || '0';
+      }
 
       if (history.length) {
         const latest = history[0];
@@ -51,15 +55,21 @@
     }
   }
 
+  let historyChartInstance = null;
+
   function renderHistoryChart(history) {
     const canvas = document.getElementById('history-chart');
     if (!canvas || typeof Chart === 'undefined') return;
+
+    if (historyChartInstance) {
+      historyChartInstance.destroy();
+    }
 
     const ordered = [...history].reverse();
     const labels = ordered.map((_, i) => `Attempt ${i + 1}`);
     const scores = ordered.map((p) => p.employability_score);
 
-    new Chart(canvas, {
+    historyChartInstance = new Chart(canvas, {
       type: 'line',
       data: {
         labels: labels.length ? labels : ['No predictions yet'],

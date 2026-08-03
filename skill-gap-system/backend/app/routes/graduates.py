@@ -102,7 +102,7 @@ async def upload_cv(
     extracted_skills = await gemini_client.extract_skills_from_text(text)
     
     # Save the parsed CV path to the graduate profile (mock path for now)
-    graduate.cv_path = f"uploads/{current_user.id}_{file.filename}"
+    graduate.cv_file_path = f"uploads/{current_user.id}_{file.filename}"
     db.commit()
     
     return {

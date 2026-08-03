@@ -92,6 +92,17 @@ const API = (() => {
     updateMyGraduateProfile: (payload) => request('/api/graduates/me', { method: 'PUT', body: payload }),
     addMySkill: (skillId, proficiency) =>
       request('/api/graduates/me/skills', { method: 'POST', body: { skill_id: skillId, proficiency } }),
+    uploadCV: async (file) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch(`${BASE_URL}/api/graduates/me/cv`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${getToken()}` },
+        body: formData
+      });
+      if (!res.ok) throw new Error(`Upload failed (${res.status})`);
+      return res.json();
+    },
 
     // Skills / reference data
     listSkills: () => request('/api/skills'),

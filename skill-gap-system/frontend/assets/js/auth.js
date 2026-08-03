@@ -65,10 +65,10 @@
         API.setSession(result.access_token);
         const user = await API.me();
         API.setSession(result.access_token, user);
-        window.showToast('Welcome back!', 'success');
+        alert('Welcome back!');
         window.location.href = 'dashboard.html';
       } catch (err) {
-        window.showToast(err.message || 'Could not log in.', 'danger');
+        alert(err.message || 'Could not log in.');
       } finally {
         setLoading('login-submit', false, 'Log in');
       }
@@ -94,7 +94,7 @@
         API.setSession(result.access_token);
         const user = await API.me();
         API.setSession(result.access_token, user);
-        window.showToast('Account created — welcome!', 'success');
+        alert('Account created — welcome!');
         window.location.href = 'dashboard.html';
       } catch (err) {
         // The login page doesn't have the toast component, so we use a simple alert.
@@ -114,9 +114,9 @@
       }
       try {
         await API.forgotPassword(email);
-        window.showToast('If that email is registered, a reset link has been sent.', 'success');
+        alert('If that email is registered, a reset link has been sent.');
       } catch (err) {
-        window.showToast(err.message || 'Something went wrong.', 'danger');
+        alert(err.message || 'Something went wrong.');
       }
     });
   });

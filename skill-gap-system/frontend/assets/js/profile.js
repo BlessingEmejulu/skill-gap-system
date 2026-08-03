@@ -22,8 +22,32 @@
       document.getElementById('field-cgpa').value = profile.cgpa ?? '';
       document.getElementById('field-graduation-year').value = profile.graduation_year ?? '';
       document.getElementById('field-state').value = profile.state_of_residence || '';
-      // projects/internships/certifications/bio aren't in GraduateOut yet —
-      // left blank on load; still saved correctly on submit.
+      document.getElementById('field-projects').value = listToTextarea(profile.projects);
+      document.getElementById('field-internships').value = listToTextarea(profile.internships);
+      document.getElementById('field-bio').value = profile.bio || '';
+      
+      // Handle Certifications
+      if (profile.certifications && Array.isArray(profile.certifications)) {
+        const certCheckboxes = document.querySelectorAll('input[name="certifications"]');
+        const customCerts = [];
+        
+        profile.certifications.forEach(cert => {
+          let found = false;
+          certCheckboxes.forEach(cb => {
+            if (cb.value === cert) {
+              cb.checked = true;
+              found = true;
+            }
+          });
+          if (!found && cert.trim() !== "") {
+            customCerts.push(cert);
+          }
+        });
+        
+        if (customCerts.length > 0) {
+          document.getElementById('field-certifications-other').value = customCerts.join(', ');
+        }
+      }
     } catch (err) {
       window.showToast(err.message || 'Could not load your profile.', 'danger');
     }
@@ -58,11 +82,23 @@
         bio: document.getElementById('field-bio').value || null,
         projects: textareaToList(document.getElementById('field-projects').value),
         internships: textareaToList(document.getElementById('field-internships').value),
-        certifications: textareaToList(document.getElementById('field-certifications').value),
+        certifications: (() => {
+          const selected = Array.from(document.querySelectorAll('input[name="certifications"]:checked')).map(cb => cb.value);
+          const otherCerts = document.getElementById('field-certifications-other').value;
+          if (otherCerts) {
+            otherCerts.split(',').forEach(c => {
+              if (c.trim()) selected.push(c.trim());
+            });
+          }
+          return selected;
+        })(),
       };
 
       try {
         await API.updateMyGraduateProfile(payload);
+        // Automatically run a new prediction in the background so dashboard stays up to date
+        API.runPrediction().catch(e => console.error('Auto-prediction failed:', e));
+        
         window.showToast('Profile saved.', 'success');
       } catch (err) {
         window.showToast(err.message || 'Could not save your profile.', 'danger');
@@ -72,9 +108,17 @@
       }
     });
 
-    document.getElementById('cv-upload-input').addEventListener('change', (e) => {
+    document.getElementById('cv-upload-input').addEventListener('change', async (e) => {
       if (e.target.files.length) {
-        window.showToast(`Selected "${e.target.files[0].name}" — connect this to a CV upload endpoint to enable AI extraction.`);
+        const file = e.target.files[0];
+        window.showToast(`Uploading "${file.name}"...`, 'info');
+        try {
+          const result = await API.uploadCV(file);
+          window.showToast(result.message || 'CV uploaded and processed!', 'success');
+          // Optionally reload the profile or show extracted skills
+        } catch (err) {
+          window.showToast(err.message || 'CV upload failed.', 'danger');
+        }
       }
     });
   });

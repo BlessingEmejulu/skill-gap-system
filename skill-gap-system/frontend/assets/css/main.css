@@ -272,6 +272,54 @@ textarea:focus-visible,
 
 .field.has-error input { border-color: var(--color-danger); }
 
+/* --- Checkbox Pills (Certifications) --- */
+.checkbox-pill {
+  position: relative;
+  display: inline-block;
+}
+.checkbox-pill input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  min-height: 0;
+}
+.checkbox-pill-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+.checkbox-pill input[type="checkbox"]:checked + .checkbox-pill-label {
+  border-color: var(--color-primary);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--color-primary-dark);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+.checkbox-pill input[type="checkbox"]:focus-visible + .checkbox-pill-label {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.checkbox-pill:hover .checkbox-pill-label {
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+
 /* =========================================================================
    Navigation
    ========================================================================= */

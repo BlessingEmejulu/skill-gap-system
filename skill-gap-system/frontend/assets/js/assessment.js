@@ -5,6 +5,7 @@
  */
 (function () {
   let allSkills = [];
+  let userSkillsMap = {};
 
   function categoryLabel(category) {
     return category.replace('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
@@ -25,23 +26,26 @@
 
     container.innerHTML = filtered
       .map(
-        (skill) => `
+        (skill) => {
+          const val = userSkillsMap[skill.id] || 0;
+          return `
         <div class="card" style="margin-bottom:var(--space-3); padding:var(--space-3);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-2);">
             <div>
               <strong>${escapeHtml(skill.name)}</strong>
               <div style="font-size:0.75rem; color:var(--color-muted);">${categoryLabel(skill.category)}</div>
             </div>
-            <span id="value-${skill.id}" style="font-weight:600; color:var(--color-primary);">0%</span>
+            <span id="value-${skill.id}" style="font-weight:600; color:var(--color-primary);">${val}%</span>
           </div>
           <input
-            type="range" min="0" max="100" value="0"
+            type="range" min="0" max="100" value="${val}"
             id="slider-${skill.id}"
             data-skill-id="${skill.id}"
             aria-label="Proficiency in ${escapeHtml(skill.name)}"
             style="width:100%;"
           />
-        </div>`
+        </div>`;
+        }
       )
       .join('');
 
@@ -86,7 +90,19 @@
     });
 
     try {
-      allSkills = await API.listSkills();
+      const [skillsResponse, profileResponse] = await Promise.all([
+        API.listSkills(),
+        API.getMyGraduateProfile()
+      ]);
+      
+      allSkills = skillsResponse;
+      
+      if (profileResponse.skills) {
+        profileResponse.skills.forEach(s => {
+          userSkillsMap[s.skill_id] = s.proficiency;
+        });
+      }
+
       if (!allSkills.length) {
         document.getElementById('skills-container').innerHTML = `
           <div class="empty-state">

@@ -14,14 +14,12 @@
     <a href="index.html" class="brand" style="margin-bottom:var(--space-4);">
       <span class="brand-mark" aria-hidden="true"></span> SkillGap<span style="color:var(--color-primary)">.ng</span>
     </a>
-    <a href="dashboard.html" class="sidebar-link">📊 Dashboard</a>
-    <a href="profile.html" class="sidebar-link active">👤 Profile</a>
-    <a href="assessment.html" class="sidebar-link">📝 Skill assessment</a>
-    <a href="prediction.html" class="sidebar-link">🎯 Prediction</a>
-    <a href="analytics.html" class="sidebar-link">📈 Analytics</a>
-    <a href="reports.html" class="sidebar-link">📄 Reports</a>
+    <a href="dashboard.html" class="sidebar-link"> Dashboard</a>
+    <a href="profile.html" class="sidebar-link active"> Profile</a>
+    <a href="assessment.html" class="sidebar-link"> Skill assessment</a>
+    <a href="prediction.html" class="sidebar-link"> Prediction</a>
     <div style="margin-top:auto; padding-top:var(--space-4); border-top:1px solid var(--color-border);">
-      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);">🌙</button>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" style="margin-bottom:var(--space-3);"></button>
       <button class="btn btn-secondary btn-block btn-sm" id="logout-btn">Log out</button>
     </div>
   </aside>
@@ -70,9 +68,44 @@
           <label for="field-internships">Internships <span style="font-weight:400; color:var(--color-muted);">(one per line)</span></label>
           <textarea id="field-internships" rows="3" placeholder="Backend intern, fintech startup"></textarea>
         </div>
-        <div class="field">
-          <label for="field-certifications">Certifications <span style="font-weight:400; color:var(--color-muted);">(one per line)</span></label>
-          <textarea id="field-certifications" rows="3" placeholder="AWS Cloud Practitioner"></textarea>
+        <div class="field" style="margin-bottom: var(--space-4);">
+          <label>Certifications</label>
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-2); margin-top:var(--space-2); margin-bottom:var(--space-4);">
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="AWS Certified Cloud Practitioner"> 
+              <span class="checkbox-pill-label">AWS Certified Cloud Practitioner</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="AWS Certified Solutions Architect"> 
+              <span class="checkbox-pill-label">AWS Certified Solutions Architect</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="CompTIA Security+"> 
+              <span class="checkbox-pill-label">CompTIA Security+</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="CompTIA Network+"> 
+              <span class="checkbox-pill-label">CompTIA Network+</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="Cisco CCNA"> 
+              <span class="checkbox-pill-label">Cisco CCNA</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="Project Management Professional (PMP)"> 
+              <span class="checkbox-pill-label">Project Management Professional (PMP)</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="Google Data Analytics Professional"> 
+              <span class="checkbox-pill-label">Google Data Analytics</span>
+            </label>
+            <label class="checkbox-pill">
+              <input type="checkbox" name="certifications" value="Microsoft Certified: Azure Fundamentals"> 
+              <span class="checkbox-pill-label">Azure Fundamentals</span>
+            </label>
+          </div>
+          <label for="field-certifications-other">Other Certifications <span style="font-weight:400; color:var(--color-muted);">(comma-separated)</span></label>
+          <input type="text" id="field-certifications-other" placeholder="e.g. Certified Scrum Master, CISA" />
         </div>
         <div class="field">
           <label for="field-bio">Short bio</label>
@@ -99,9 +132,9 @@
   </div>
 </div>
 
-<script src="assets/js/api.js"></script>
+<script src="assets/js/api.js?v=2"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/profile.js"></script>
+<script src="assets/js/profile.js?v=2"></script>
 </body>
 </html>
