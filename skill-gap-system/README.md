@@ -1,26 +1,54 @@
-# Graduate Skill Gap Prediction System
+# Graduate Skill Gap Prediction System (SkillGap.ng)
 
-An AI-powered employability and skill-gap prediction platform for Nigerian
-graduates — predicts employability, compares graduate skills against labour
-market demand, and recommends personalized learning paths.
+An AI-powered employability and skill-gap prediction platform for Nigerian graduates — predicts employability, compares graduate skills against labour market demand, and recommends personalized learning paths to help close the gap between school and work.
 
-This is a **working scaffold**: the data model, auth, REST API, ML pipeline,
-and every frontend page are wired together and run end-to-end today. AI
-features that depend on an external Gemma endpoint degrade gracefully (empty
-results, logged warning) until you point `GEMMA_API_URL` at a real model.
+This is a **fully functional system**: the data model, JWT authentication, REST API, ML prediction pipeline, Google Gemma integration, and frontend pages are wired together and run end-to-end.
 
 ## Stack
 
 | Layer      | Technology |
 |------------|------------|
 | Frontend   | HTML5, CSS3, vanilla JavaScript (ES6+), Chart.js |
-| Backend    | FastAPI, SQLAlchemy, SQLite |
-| Auth       | JWT (python-jose) + bcrypt |
-| AI         | Google Gemma (skill extraction, recommendations) via a swappable client |
+| Backend    | FastAPI, SQLAlchemy, SQLite, Pydantic |
+| Auth       | JWT (python-jose) + bcrypt for password hashing |
+| AI         | Google Gemini / Gemma (skill extraction from CVs, dynamic recommendations) |
 | ML         | scikit-learn (RandomForestClassifier) for employability prediction |
-| Reports    | ReportLab (PDF), OpenPyXL (Excel) |
+| Docker     | Docker Compose for seamless, reproducible multi-container deployment |
 
-## Project structure
+## Features
+
+- **Employability Prediction:** A machine-learning model scores your readiness using your CGPA, projects, internships, certifications, and skills.
+- **Skill Assessment:** Rate your proficiency across dozens of technical, soft, digital-literacy, and industry-readiness skills.
+- **Job Matching:** Browse live job postings and see a computed match percentage based on your assessed skills. Highlights exactly which required skills you are missing for any given job.
+- **CV Skill Extraction:** Upload a PDF or Word CV and the backend uses Google Gemma to automatically extract your skills, education, and experience.
+- **AI-generated Roadmap:** Personalized course, certification, and portfolio suggestions generated dynamically by Google Gemma for your specific gaps.
+
+## Running the Application
+
+This project is fully dockerized. To start both the backend FastAPI server and the static frontend web server:
+
+```bash
+# Start the containers in the background (builds the images if necessary)
+docker-compose up -d --build
+```
+
+- **Frontend Application:** http://localhost:5500
+- **Backend API:** http://localhost:8001
+- **API Documentation (Swagger UI):** http://localhost:8001/docs
+
+### Accessing the Database
+
+To run backend commands (like manual Python scripts or database seeders):
+```bash
+docker-compose exec backend python <your_script.py>
+```
+
+To view backend logs:
+```bash
+docker-compose logs -f backend
+```
+
+## Project Structure
 
 ```
 skill-gap-system/
@@ -29,100 +57,36 @@ skill-gap-system/
 │   │   ├── main.py            # FastAPI app + router wiring
 │   │   ├── config.py          # Settings (reads .env)
 │   │   ├── database/          # SQLAlchemy engine/session
-│   │   ├── models/            # 14 tables from the spec (one file per domain)
+│   │   ├── models/            # SQLAlchemy Tables (one file per domain)
 │   │   ├── schemas/           # Pydantic request/response models
 │   │   ├── auth/              # JWT + bcrypt + RBAC dependencies
-│   │   ├── routes/            # /auth /users /graduates /employers /skills
-│   │   │                        /courses /universities /jobs /prediction
-│   │   │                        /recommendations /analytics /reports
-│   │   ├── services/          # Skill-gap matching, prediction, analytics
-│   │   ├── ai/                # Gemma client wrapper
-│   │   ├── ml/                # Employability model + training script
-│   │   └── utils/             # Pagination, PDF/Excel report generation
-│   ├── requirements.txt
-│   └── .env.example
-└── frontend/
-    ├── index.html              # Landing page
-    ├── login.html               # Login + registration (tabbed)
-    ├── dashboard.html            # Graduate dashboard (score, charts, recs)
-    ├── profile.html               # Academic background, projects, CV upload UI
-    ├── assessment.html             # Self-rate skills by category
-    ├── prediction.html              # Score detail + prediction history
-    ├── analytics.html                # Admin/Researcher labour-market dashboard
-    ├── reports.html                   # Generate & download PDF/Excel reports
-    └── assets/{css,js}/
+│   │   ├── routes/            # Route controllers for graduates, jobs, etc.
+│   │   ├── services/          # Skill-gap matching, prediction, analytics logic
+│   │   ├── ai/                # Gemma/Gemini client wrapper
+│   │   ├── ml/                # Employability model
+│   │   └── utils/             # Pagination, Report generation
+│   ├── alembic/               # Database migrations
+│   ├── Dockerfile             # Backend container image
+│   ├── requirements.txt       # Python dependencies
+│   ├── seed_jobs.py           # Script to seed initial jobs and skills
+│   └── uploads/               # Directory for uploaded CVs
+├── frontend/
+│   ├── index.html              # Landing page
+│   ├── login.html              # Login & registration
+│   ├── dashboard.html          # Graduate dashboard (score, charts, recs)
+│   ├── profile.html            # Academic background, projects, CV upload
+│   ├── assessment.html         # Self-rate skills by category
+│   ├── jobs.html               # Job Matching interface
+│   ├── prediction.html         # Score detail & prediction history
+│   └── assets/{css,js}/        # Styles and JavaScript logic
+├── docker-compose.yml          # Multi-container orchestration
+└── .env                        # Environment variables (API keys, secrets)
 ```
 
-## Running the backend
+## Security & Production Readiness
 
-```bash
-cd backend
-
-# Create and activate a virtual environment (optional but recommended)
-python -m venv venv
-# On Windows (PowerShell):
-.\venv\Scripts\Activate.ps1
-# On macOS/Linux:
-# source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-cp .env.example .env  # then edit SECRET_KEY at minimum
-
-# (optional) train the employability model on synthetic demo data —
-# without this, predictions fall back to a transparent weighted heuristic
-python -m app.ml.train_model
-
-# Run the development server
-uvicorn app.main:app --reload
-```
-
-- API docs: http://localhost:8000/docs
-- Health check: http://localhost:8000/api/health
-- Tables are created automatically on startup via `Base.metadata.create_all()`.
-  Swap this for Alembic migrations before production use.
-
-## Running the frontend
-
-The frontend is static — no build step. Serve it with any static server and
-point it at your running backend:
-
-```bash
-cd frontend
-python3 -m http.server 5500
-```
-
-Then open http://localhost:5500. If your backend isn't on
-`http://localhost:8000`, set `window.API_BASE_URL` before `api.js` loads
-(e.g. add `<script>window.API_BASE_URL = "https://your-api.example.com";</script>`
-in each HTML `<head>`), or edit the default in `assets/js/api.js`.
-
-## What's implemented vs. what's stubbed
-
-**Fully working:** registration/login/JWT auth, role-based access control
-(Administrator/Graduate/Employer/Researcher), graduate profile CRUD, skill
-self-assessment, job posting CRUD, skill-gap match percentage calculation,
-employability prediction (trained scikit-learn model with heuristic
-fallback), analytics aggregation queries, PDF/Excel report generation and
-download, and every frontend page wired to the live API with loading/empty/
-error states, dark mode, and responsive layout down to 320px.
-
-**Stubbed / extension points, clearly marked in code:**
-- **Gemma calls** (`app/ai/gemma_client.py`) point at a local Ollama-style
-  endpoint by default. Point `GEMMA_API_URL` / `GEMMA_MODEL_NAME` at your
-  actual deployment — no other code needs to change.
-- **CV upload & parsing** — the profile page has the upload UI; wire it to a
-  new `/api/graduates/me/cv` endpoint that saves the file and calls
-  `gemma_client.extract_skills_from_text()`.
-- **ML training data** — `app/ml/train_model.py` trains on synthetic data so
-  the model works out of the box. Swap `generate_synthetic_dataset()` for a
-  loader over real, labeled graduate-outcome data when available.
-- **Email delivery** for password resets — `forgot-password` generates a
-  token but logs it instead of emailing it (see the `TODO` in `routes/auth.py`).
-
-## Security notes for production
-
-- Change `SECRET_KEY` in `.env` — the default is for local dev only.
-- Replace `Base.metadata.create_all()` with Alembic migrations.
-- Add rate limiting (the `slowapi` dependency is already in `requirements.txt`).
-- Tighten `ALLOWED_ORIGINS` to your real frontend domain(s).
+Before deploying to a public production environment:
+1. **API Keys:** Ensure `GEMINI_API_KEY` is securely set in `.env` so that AI recommendations and CV parsing work against the live model.
+2. **Secret Keys:** Change the `SECRET_KEY` in `.env` — the default is for local development only.
+3. **Database Security:** The current application uses SQLite for simplicity. For production, switch the `DATABASE_URL` in `.env` to a managed PostgreSQL instance and update the `psycopg2` dependency.
+4. **CORS:** Tighten `ALLOWED_ORIGINS` in `.env` to only allow requests from your verified frontend domains.
